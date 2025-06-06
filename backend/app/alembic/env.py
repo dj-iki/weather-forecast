@@ -5,6 +5,14 @@ from sqlalchemy import engine_from_config, pool
 
 from app.database.config import DATABASE_URL
 
+from app.main import DailySchema, RawSchema
+from app.models.daily__measurement_context import DailyMeasurementContext
+from app.models.raw__daily_metrics import RawDailyMetrics
+from app.models.daily__wind_measurements import DailyWindMeasurements
+from app.models.daily__precipitation_measurements import DailyPrecipitationMeasurements
+from app.models.daily__temperature_measurements import DailyTemperatureMeasurements
+from app.models.daily__uv_lights_measurements import DailyUVLightsMeasurements
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -21,7 +29,7 @@ if config.config_file_name is not None:
 
 # target_metadata = mymodel.Base.metadata
 # TODO - Add schemas here (and public)
-target_metadata = []
+target_metadata = [RawSchema.metadata, DailySchema.metadata]
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -29,7 +37,7 @@ target_metadata = []
 # ... etc.
 
 # TODO - Add schemas here
-LIST_OF_SCHEMAS_TO_BE_SCANNED = ["public"]
+LIST_OF_SCHEMAS_TO_BE_SCANNED = ["public", "raw_schema", "daily_schema"]
 
 
 def include_name(name, type_, parent_names):
