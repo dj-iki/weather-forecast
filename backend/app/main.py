@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from .routers import dummy
 
 # needed for Alembic migrations to work
 # TODO - Add schemas import here for Alembic
@@ -36,3 +37,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 # TODO - Add routers with app.include_router(name.router)
+
+app.include_router(dummy.router)
