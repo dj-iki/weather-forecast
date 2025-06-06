@@ -1,10 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routers import dummy
+
 
 # needed for Alembic migrations to work
 # TODO - Add schemas import here for Alembic
 # TODO - Import routers
+
+from .routers import dummy
+from .models.base import RawSchema, DailySchema
+
 
 description = """
 
