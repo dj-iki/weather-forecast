@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # TODO - Import routers
 
 from .routers import dummy
-from .models.base import RawSchema, DailySchema
+from .models.base import RawSchema, DailySchema, HourlySchema
 
 
 description = """

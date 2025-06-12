@@ -7,7 +7,7 @@ class DailyTemperatureMeasurements(DailySchema):
     id = Column("id", Integer, primary_key = True)
     temperature_2m_max = Column("temperature_2m_max", Float, nullable = False)
     temperature_2m_min = Column("temperature_2m_min", Float, nullable = False)
-    inserted_at = Column("inserte_at", TIMESTAMP, server_default = func.now())
+    inserted_at = Column("inserted_at", TIMESTAMP, server_default = func.now())
     daily__measurement_context_id = Column(
         "daily__measurement_context_id", Integer, ForeignKey("daily__measurement_context.id")
     ) 

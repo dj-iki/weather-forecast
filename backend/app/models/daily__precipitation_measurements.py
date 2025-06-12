@@ -8,7 +8,7 @@ class DailyPrecipitationMeasurements(DailySchema):
     precipitation_sum = Column("precipitation_sum", Float, nullable = False)
     precipitation_length = Column("precipitation_length", Float, nullable = False)
     precipitation_probability_max = Column("precipitation_probability_max", Float, nullable = False)
-    inserted_at = Column("inserte_at", TIMESTAMP, server_default = func.now())
+    inserted_at = Column("inserted_at", TIMESTAMP, server_default = func.now())
     daily__measurement_context_id = Column(
         "daily__measurement_context_id", Integer, ForeignKey("daily__measurement_context.id")
     ) 
