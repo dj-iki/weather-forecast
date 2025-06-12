@@ -1,0 +1,38 @@
+from sqlalchemy import Column, Integer, Float, TIMESTAMP
+from .base import RawSchema
+
+class RawHourlyMetrics(RawSchema):
+    __tablename__ = "raw__hourly_metrics"
+
+    longitude = Column("longitude", Float, nullable=False, primary_key=True)
+    latitude = Column("latitude", Float, nullable=False, primary_key=True)
+    measurements_date_and_time = Column("measurements_date_and_time", TIMESTAMP, nullable=False, primary_key=True)
+    temperature_2m_in_C = Column("temperature_2m_in_C", Float, nullable=False)
+    temperature_80m_in_C = Column("temperature_80m_in_C", Float, nullable=False)
+    temperature_120m_in_C = Column("temperature_120m_in_C", Float, nullable=False)
+    temperature_180m_in_C = Column("temperature_180m_in_C", Float, nullable=False)
+    relative_humidity_2m_in_percentage = Column("relative_humidity_2m_in_percentage", Integer, nullable=False)
+    percipitation_in_mm = Column("percipitation_in_mm", Float, nullable=False)
+    percipitation_probability_in_percentage = Column("percipitation_probability_in_percentage", Integer, nullable=False)
+    cloud_cover_low_in_percentage = Column("cloud_cover_low_in_percentage", Integer, nullable=False)
+    cloud_cover_in_percentage = Column("cloud_cover_in_percentage", Integer, nullable=False)
+    cloud_cover_mid_in_percentage = Column("cloud_cover_mid_in_percentage", Integer, nullable=False)
+    cloud_cover_high_in_percentage = Column("cloud_cover_high_in_percentage", Integer, nullable=False)
+    visibility_in_m = Column("visibility_in_m", Integer, nullable=False)
+    wind_speed_10m_in_kmph = Column("wind_speed_10m_in_kmph", Float, nullable=False)
+    wind_speed_80m_in_kmph = Column("wind_speed_80m_in_kmph", Float, nullable=False)
+    wind_speed_120m_in_kmph = Column("wind_speed_120m_in_kmph", Float, nullable=False)
+    wind_speed_180m_in_kmph = Column("wind_speed_180m_in_kmph", Float, nullable=False)
+    wind_direction_10m_in_degree = Column("wind_direction_10m_in_degree", Integer, nullable=False)
+    wind_direction_80m_in_degree = Column("wind_direction_80m_in_degree", Integer, nullable=False)
+    wind_direction_120m_in_degree = Column("wind_direction_120m_in_degree", Integer, nullable=False)
+    wind_direction_180m_in_degree = Column("wind_direction_180m_in_degree", Integer, nullable=False)
+    soil_temperature_0cm_in_C = Column("soil_temperature_0cm_in_C", Float, nullable=False)
+    soil_temperature_6cm_in_C = Column("soil_temperature_6cm_in_C", Float, nullable=False)
+    soil_temperature_18cm_in_C = Column("soil_temperature_18cm_in_C", Float, nullable=False)
+    soil_temperature_54cm_in_C = Column("soil_temperature_54cm_in_C", Float, nullable=False)
+    soil_moisture_0cm_to_1cm_in_percentage = Column("soil_moisture_0cm_to_1cm_in_percentage", Float, nullable=False)
+    soil_moisture_1cm_to_3cm_in_percentage = Column("soil_moisture_1cm_to_3cm_in_percentage", Float, nullable=False)
+    soil_moisture_3cm_to_9cm_in_percentage = Column("soil_moisture_3cm_to_9cm_in_percentage", Float, nullable=False)
+    soil_moisture_9cm_to_27cm_in_percentage = Column("soil_moisture_9cm_to_27cm_in_percentage", Float, nullable=False)
+    soil_moisture_27cm_to_81cm_in_percentage = Column("soil_moisture_27cm_to_81cm_in_percentage", Float, nullable=False)

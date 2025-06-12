@@ -9,3 +9,7 @@ RawSchema = declarative_base(
 DailySchema = declarative_base(
     metadata = MetaData(schema="daily_schema")
 )
+
+HourlySchema = declarative_base(
+    metadata = MetaData(schema="hourly_schema")
+)
