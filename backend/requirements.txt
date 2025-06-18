@@ -12,3 +12,4 @@ langchain-community==0.3.24
 pymupdf4llm==0.0.24
 pandas==2.2.3
 requests==2.32.3
+apscheduler==3.11.0

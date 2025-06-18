@@ -25,10 +25,10 @@ def get_hourly(latitude: Annotated[float, Query(ge = (-180), le = 180)] = 45.770
     data = response.json()
 
     if response.ok:
-        logger.info("Hourly weather-forecast information geathered successfully")
+        logger.info("Hourly weather-forecast information gathered successfully")
         return data
     else:
-        logger.warning("Api request for hourly weather forecast failed")
+        logger.warning(f"Api request for daily weather forecast failed. Status code={response.status_code}. Error={data['reason']}")
         raise HTTPException(status_code=response.status_code, detail="Api request failed")
         
 @router.get("/api/get_daily")
@@ -41,8 +41,8 @@ def get_daily(latitude: Annotated[float, Query(ge = (-180), le = 180)] = 45.7704
     data = response.json()
 
     if response.ok:
-        logger.info("Daily weather-forecast information geathered successfully")
+        logger.info("Daily weather-forecast information gathered successfully")
         return data
     else:
-        logger.warning("Api request for daily weather forecast failed")
+        logger.warning(f"Api request for daily weather forecast failed. Status code={response.status_code}. Error={data['reason']}")
         raise HTTPException(status_code=response.status_code, detail="Api request failed")
