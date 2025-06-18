@@ -1,4 +1,5 @@
-import logging
+import logging, os
+from datetime import date
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -12,4 +13,20 @@ console_handler.setLevel(logging.DEBUG)
 console_handler.setFormatter(
     logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 )
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+log_dir = os.path.abspath(os.path.join(base_dir,"../Logs"))
+
+
+filename = os.path.join(log_dir,f"weather-forecast-{date.today()}-logs.txt")
+print(filename)
+
+file_handler = logging.FileHandler(filename,"a",encoding="utf-8")
+file_handler.setLevel(logging.DEBUG)
+
+file_formater = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+file_handler.setFormatter(file_formater)
+
+
 logger.addHandler(console_handler)
+logger.addHandler(file_handler)
