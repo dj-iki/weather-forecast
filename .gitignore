@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # logs
-backend/app/logs/
+app/logs/
 
 # Distribution / packaging
 .Python
