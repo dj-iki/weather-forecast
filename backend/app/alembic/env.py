@@ -8,6 +8,7 @@ from app.database.config import DATABASE_URL
 from app.main import DailySchema, RawSchema, HourlySchema
 from app.models.daily__measurement_context import DailyMeasurementContext
 from app.models.raw__daily_metrics import RawDailyMetrics
+from app.models.raw__hourly_metrics import RawHourlyMetrics
 from app.models.daily__wind_measurements import DailyWindMeasurements
 from app.models.daily__precipitation_measurements import DailyPrecipitationMeasurements
 from app.models.daily__temperature_measurements import DailyTemperatureMeasurements
