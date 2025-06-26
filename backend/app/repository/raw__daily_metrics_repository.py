@@ -4,6 +4,7 @@ from ..utils.logger import logger
 from ..models.raw__daily_metrics import RawDailyMetrics
 from datetime import datetime
 
+# SELECT * FROM raw__daily_metrics where longitude=? and latitude=? and measurement_date=?
 def get_raw__daily_metrics(db: Session, longitude: float, latitude: float, measurement_date: datetime):
     try:
         measurement = db.query(RawDailyMetrics).filter(RawDailyMetrics.longitude == longitude,
@@ -19,7 +20,7 @@ def get_raw__daily_metrics(db: Session, longitude: float, latitude: float, measu
         logger.warning(f"Database error occurred: {e}")
 
 
-
+# INSERT INTO raw__daily_metrics(nazivi kolona) VALUES(ovde idu sve vrednosti)
 def add_raw__daily_metrics(db: Session, data: dict, i: int):
     try:
         raw__daily_metrics = RawDailyMetrics()
@@ -45,6 +46,8 @@ def add_raw__daily_metrics(db: Session, data: dict, i: int):
         db.rollback()
         logger.warning(f" - {raw__daily_metrics.latitude}, {raw__daily_metrics.longitude}, {raw__daily_metrics.measurment_date} - already exists or is invalid data")
 
+
+# UPDATE raw__daily_metrics set (ovde idu sve kolone koje ne ulaze u pk) where longiutde=? and latitude=? and measurement_date=?
 def update_raw__daily_metrics(db: Session, raw__daily_metrics: RawDailyMetrics, data: dict, i: int):
     try:
         db.merge(raw__daily_metrics)

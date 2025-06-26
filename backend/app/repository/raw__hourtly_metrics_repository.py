@@ -4,7 +4,7 @@ from ..utils.logger import logger
 from ..models.raw__hourly_metrics import RawHourlyMetrics
 from datetime import datetime
 
-
+# INSERT INTO raw__hourly_metrics(nazivi kolona) VALUES(ovde idu sve vrednosti)
 def add_raw__hourly_metrics(db: Session, data: dict, i: int):
     try:
         raw__hourly_metrics = RawHourlyMetrics()
@@ -47,11 +47,13 @@ def add_raw__hourly_metrics(db: Session, data: dict, i: int):
         db.refresh(raw__hourly_metrics)
         logger.info(f" - {raw__hourly_metrics.latitude}, {raw__hourly_metrics.longitude}, {raw__hourly_metrics.measurements_date_and_time} - inserted successfully")
         return raw__hourly_metrics
-        
     except IntegrityError:
         db.rollback()
         logger.warning(f"{raw__hourly_metrics} already exists or is invalid data")
 
+
+
+# SELECT * FROM raw__hourly_metrics where longitude=? and latitude=? and measurements_date_and_time=?
 def get_raw__hourly_metrics(db: Session, longitude: float, latitude: float, measurements_date_and_time: datetime):
     try:
         measurements = db.query(RawHourlyMetrics).filter(RawHourlyMetrics.longitude == longitude,
@@ -66,6 +68,8 @@ def get_raw__hourly_metrics(db: Session, longitude: float, latitude: float, meas
     except SQLAlchemyError as e:
         logger.warning("Query failed - ", e) 
 
+
+# UPDATE raw__hourly_metrics set (ovde idu sve kolone koje ne ulaze u pk) where longiutde=? and latitude=? and measurements_date_and_time=?
 def update_raw__hourly_metrics(db: Session, raw__hourly_metrics: RawHourlyMetrics, data: dict, i: int):
     try:
         db.merge(raw__hourly_metrics)
