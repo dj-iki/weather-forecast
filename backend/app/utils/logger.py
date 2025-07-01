@@ -15,7 +15,7 @@ console_handler.setFormatter(
 )
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-log_dir = os.path.abspath(os.path.join(base_dir,"../Logs"))
+log_dir = os.path.abspath(os.path.join(base_dir,"../logs"))
 
 
 filename = os.path.join(log_dir,f"weather-forecast-{date.today()}-logs.txt")
