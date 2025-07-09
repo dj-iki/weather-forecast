@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
-from .scheduled.fill_raw_zone import get_raw__daily_data, get_raw_hourly_data
+from .scheduled.fill_raw_zone import get_raw__daily_data
+from .scheduled.scheduler import scheduled_hourly
 from .utils.logger import logger
 from datetime import datetime
 
@@ -12,7 +13,7 @@ from datetime import datetime
 # TODO - Import routers
 
 from .routers import dummy
-from .models.base import RawSchema, DailySchema, HourlySchema
+from .models.base import RawSchema, DailySchema, HourlySchema, UtilSchema
 
 
 description = """
@@ -70,7 +71,7 @@ def start_scheduler():
         replace_existing=True
     )
     scheduler.add_job(
-        get_raw_hourly_data,
+        scheduled_hourly,
         CronTrigger(minute="15"),
         id="get_raw_hourly_data",
         replace_existing=True

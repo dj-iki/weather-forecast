@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, TIMESTAMP
+from sqlalchemy import Column, Integer, Float, TIMESTAMP, func
 from .base import RawSchema
 
 class RawHourlyMetrics(RawSchema):
@@ -36,3 +36,4 @@ class RawHourlyMetrics(RawSchema):
     soil_moisture_3cm_to_9cm_in_percentage = Column("soil_moisture_3cm_to_9cm_in_percentage", Float, nullable=False)
     soil_moisture_9cm_to_27cm_in_percentage = Column("soil_moisture_9cm_to_27cm_in_percentage", Float, nullable=False)
     soil_moisture_27cm_to_81cm_in_percentage = Column("soil_moisture_27cm_to_81cm_in_percentage", Float, nullable=False)
+    inserted_at = Column("inserted_at", TIMESTAMP, nullable=False, server_default=func.now())

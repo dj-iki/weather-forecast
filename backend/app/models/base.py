@@ -13,3 +13,7 @@ DailySchema = declarative_base(
 HourlySchema = declarative_base(
     metadata = MetaData(schema="hourly_schema")
 )
+
+UtilSchema = declarative_base(
+    metadata = MetaData(schema="util_schema")
+)

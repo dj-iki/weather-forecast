@@ -1,8 +1,10 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy import func
 from ..utils.logger import logger
 from ..models.raw__daily_metrics import RawDailyMetrics
 from datetime import datetime
+
 
 # SELECT * FROM raw__daily_metrics where longitude=? and latitude=? and measurement_date=?
 def get_raw__daily_metrics(db: Session, longitude: float, latitude: float, measurement_date: datetime):
@@ -61,6 +63,7 @@ def update_raw__daily_metrics(db: Session, raw__daily_metrics: RawDailyMetrics, 
         raw__daily_metrics.precipatition_hours_in_s = daily_data["precipitation_hours"][i]
         raw__daily_metrics.wind_speed_10m_max_in_kmph = daily_data["wind_speed_10m_max"][i]
         raw__daily_metrics.wind_direction_10m_dominant_in_degree = daily_data["wind_direction_10m_dominant"][i]
+        raw__daily_metrics.inserted_at = func.now()
         db.commit()
         db.refresh(raw__daily_metrics)
         logger.info(f" - {raw__daily_metrics.latitude}, {raw__daily_metrics.longitude}, {raw__daily_metrics.measurment_date} - updated successfully")
