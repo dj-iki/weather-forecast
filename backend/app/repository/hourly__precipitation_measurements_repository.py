@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import Integer
 from ..models.raw__hourly_metrics import RawHourlyMetrics
-from ..models.hourly__percipitation_measurements import HourlyPercipitationMeasurements
+from ..models.hourly__precipitation_measurements import HourlyPercipitationMeasurements
 
 def add_hourly__percipitation_measurements(db: Session, hourly__percipitation_measurements: HourlyPercipitationMeasurements):
     db.add(hourly__percipitation_measurements)

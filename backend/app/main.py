@@ -2,8 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
-from .scheduled.fill_raw_zone import get_raw__daily_data
-from .scheduled.scheduler import scheduled_hourly
+from .scheduled.scheduler import scheduled_hourly, scheduled_daily
 from .utils.logger import logger
 from datetime import datetime
 
@@ -65,8 +64,9 @@ scheduler = BackgroundScheduler()
 @app.on_event("startup")
 def start_scheduler():
     scheduler.add_job(
-        get_raw__daily_data,
-        CronTrigger(minute="0",hour="21",day_of_week="sun"),
+        scheduled_daily,
+        # CronTrigger(minute="0",hour="21",day_of_week="sun"),
+        CronTrigger(minute="49"),
         id="get_raw_daily_data",
         replace_existing=True
     )

@@ -18,6 +18,7 @@ def get_hourly_measurement_context(db: Session, place_name: String, measurement_
 def add_hourly__measurement_context(db: Session, hourly__measurement_context: HourlyMesurementContext) -> HourlyMesurementContext:
     db.add(hourly__measurement_context)
     db.commit()
+    db.refresh(hourly__measurement_context)
     return hourly__measurement_context
 
 def update_hourly__measurement_context(db: Session, hourly__measurement_context: HourlyMesurementContext) -> HourlyMesurementContext:

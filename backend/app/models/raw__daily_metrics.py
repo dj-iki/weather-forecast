@@ -13,7 +13,7 @@ class RawDailyMetrics(RawSchema):
     daylight_duration_in_s = Column("daylight_duration_in_s", Float, nullable=False)
     uv_index_max = Column("uv_index_max", Float, nullable=False)
     precipatition_sum_in_mm = Column("precipatition_sum_in_mm", Float, nullable=False)
-    precipatition_hours_in_s = Column("precipatition_hours_in_s", Float, nullable=False)
+    precipatition_hours_in_h = Column("precipatition_hours_in_s", Float, nullable=False)
     precipatition_probability_max_in_p = Column("precipatition_probability_max_in_p", Float, nullable=False)
     wind_speed_10m_max_in_kmph = Column("wind_speed_10m_max_in_kmph", Float, nullable=False)
     wind_direction_10m_dominant_in_degree = Column("wind_direction_10m_dominant_in_degree", Integer, nullable=False)

@@ -4,7 +4,7 @@ from ..models.update_log import UpdateLog
 from ..utils.logger import logger
 
 
-def get__daily_update_log(db: Session):
+def get__daily_update_log(db: Session) -> UpdateLog:
     update_log = db.query(UpdateLog).filter(UpdateLog.data_type == 'daily').first()
 
     if update_log:
