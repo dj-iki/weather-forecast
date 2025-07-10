@@ -1,18 +1,18 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import Integer
 from ..models.raw__hourly_metrics import RawHourlyMetrics
-from ..models.hourly__precipitation_measurements import HourlyPercipitationMeasurements
+from ..models.hourly__precipitation_measurements import HourlyPrecipitationMeasurements
 
-def add_hourly__percipitation_measurements(db: Session, hourly__percipitation_measurements: HourlyPercipitationMeasurements):
-    db.add(hourly__percipitation_measurements)
+def add_hourly__precipitation_measurements(db: Session, hourly__precipitation_measurements: HourlyPrecipitationMeasurements):
+    db.add(hourly__precipitation_measurements)
     db.commit()
 
-def get_hourly__percipitation_measurements(db: Session, hourly_measurement_context_id: Integer) -> HourlyPercipitationMeasurements:
-    return db.query(HourlyPercipitationMeasurements).filter(HourlyPercipitationMeasurements.hourly_measurement_context_id == hourly_measurement_context_id).first()
+def get_hourly__precipitation_measurements(db: Session, hourly_measurement_context_id: Integer) -> HourlyPrecipitationMeasurements:
+    return db.query(HourlyPrecipitationMeasurements).filter(HourlyPrecipitationMeasurements.hourly_measurement_context_id == hourly_measurement_context_id).first()
 
-def update_hourly__percipitation_measurements(db: Session, hourly__percipitation_measurements: HourlyPercipitationMeasurements, data: RawHourlyMetrics):
-    hourly__percipitation_measurements.percipitation = data.percipitation_in_mm
-    hourly__percipitation_measurements.percipitation_probability = data.percipitation_probability_in_percentage
+def update_hourly__precipitation_measurements(db: Session, hourly__percipitation_measurements: HourlyPrecipitationMeasurements, data: RawHourlyMetrics):
+    hourly__percipitation_measurements.precipitation = data.precipitation_in_mm
+    hourly__percipitation_measurements.precipitation_probability = data.precipitation_probability_in_percentage
     hourly__percipitation_measurements.relative_humidity_2m = data.relative_humidity_2m_in_percentage
     hourly__percipitation_measurements.inserted_at = data.inserted_at
     db.commit()

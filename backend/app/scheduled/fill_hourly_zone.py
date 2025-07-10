@@ -2,7 +2,7 @@ from ..dependencies.session import get_db
 from ..repository.raw__hourtly_metrics_repository import get_raw__hourly_metrics_after
 from ..repository.update_log_repository import get__hourly_update_log, update__hourly_update_log
 from ..models.hourly__measurement_context import HourlyMesurementContext
-from ..models.hourly__precipitation_measurements import HourlyPercipitationMeasurements
+from ..models.hourly__precipitation_measurements import HourlyPrecipitationMeasurements
 from ..models.hourly__soil_measurements import HourlySoilMeasurements
 from ..models.hourly__temperature_measurements import HourlyTemperatureMeasurements
 from ..models.hourly__visibility_measurements import HourlyVisibilityMeasurements
@@ -12,7 +12,7 @@ from ..repository.hourly__wind_measurements_repository import add_hourly__wind_m
 from ..repository.hourly__visibility_measurements_repository import add_hourly__visibility_measurements, get_hourly__visibility_measurements, update_hourly__visibility_measurements
 from ..repository.hourly__temperature_measurements_repository import add_hourly__temperature_measurements, get_hourly__temperature_measurements, update_hourly__temperature_measurements
 from ..repository.hourly__soil_measurements_repository import add_hourly__soil_measurements, get_hourly__soil_measurements, update_hourly__soil_measurements
-from ..repository.hourly__precipitation_measurements_repository import add_hourly__percipitation_measurements, get_hourly__percipitation_measurements, update_hourly__percipitation_measurements
+from ..repository.hourly__precipitation_measurements_repository import add_hourly__precipitation_measurements, get_hourly__precipitation_measurements, update_hourly__precipitation_measurements
 from geopy.geocoders import Nominatim
 from ..utils.logger import logger
 
@@ -94,13 +94,13 @@ def fill_hourly_zone():
                 add_hourly__soil_measurements(db, hourly__soil_measurements)
 
                 # ADD - HOURLY__PERCIPITATION_MEASUREMENTS
-                hourly__percipitation_measurements = HourlyPercipitationMeasurements(
-                    percipitation = data.percipitation_in_mm,
-                    percipitation_probability = data.percipitation_probability_in_percentage,
+                hourly__percipitation_measurements = HourlyPrecipitationMeasurements(
+                    percipitation = data.precipitation_in_mm,
+                    percipitation_probability = data.precipitation_probability_in_percentage,
                     relative_humidity_2m = data.relative_humidity_2m_in_percentage,
                     hourly_measurement_context_id = hourly__measurement_context.id
                 )
-                add_hourly__percipitation_measurements(db, hourly__percipitation_measurements)
+                add_hourly__precipitation_measurements(db, hourly__percipitation_measurements)
 
             else:
                 hourly__measurement_context = update_hourly__measurement_context(db, hourly__measurement_context)
@@ -122,8 +122,8 @@ def fill_hourly_zone():
                 update_hourly__soil_measurements(db, hourly__soil_measurements, data)
 
                 # UPDATE - HOURLY__PERCIPITATION_MEASUREMETNS
-                hourly__percipitation_measurements = get_hourly__percipitation_measurements(db, hourly__measurement_context.id)
-                update_hourly__percipitation_measurements(db, hourly__percipitation_measurements, data)
+                hourly__percipitation_measurements = get_hourly__precipitation_measurements(db, hourly__measurement_context.id)
+                update_hourly__precipitation_measurements(db, hourly__percipitation_measurements, data)
             
             update__hourly_update_log(db)
         else:
