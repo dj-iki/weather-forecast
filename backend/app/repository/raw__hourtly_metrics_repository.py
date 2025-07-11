@@ -122,4 +122,5 @@ def get_raw__hourly_metrics_after(db: Session, update_log: UpdateLog):
     if raw__hourly_metrics:
         return raw__hourly_metrics
     else:
+        logger.warning(f"There is no hourly data after {update_log.last_updated}")
         return None

@@ -79,4 +79,5 @@ def get_raw__daily_metrics_after(db: Session, update_log: UpdateLog):
     if raw__daily_metrics:
         return raw__daily_metrics
     else:
-        logger.error("")
+        logger.warning(f"There is no daily data after {update_log.last_updated}")
+        return None

@@ -19,10 +19,12 @@ def add_daily__measurement_context(db: Session, place_name: String, measurement_
         db.refresh(daily__measurement_context)
         return daily__measurement_context
     except SQLAlchemyError as e:
+        db.rollback()
         logger.error(f"There was an error while adding DailyMeasurementContext - {e}")
 def update_daily__measurement_context(db: Session, daily__measurement_context: DailyMeasurementContext):
     try:
         daily__measurement_context.inserted_at = func.now()
         db.commit()
     except SQLAlchemyError as e:
+        db.rollback()
         logger.error(f"There was an error while updating DailyMeasurementContext - {e}")

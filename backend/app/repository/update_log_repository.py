@@ -10,7 +10,8 @@ def get__daily_update_log(db: Session) -> UpdateLog:
     if update_log:
         return update_log
     else:
-        logger.error("")
+        logger.error("Thre was an error while fatching data about daily update log")
+        return None
 
 def get__hourly_update_log(db: Session) -> UpdateLog:
     update_log = db.query(UpdateLog).filter(UpdateLog.data_type == 'hourly').first()
@@ -18,7 +19,8 @@ def get__hourly_update_log(db: Session) -> UpdateLog:
     if update_log:
         return update_log
     else:
-        logger.error("")
+        logger.error("Thre was an error while fatching data about hourly update log")
+        return None
 
 def update__daily_update_log(db: Session):
     update_log = db.query(UpdateLog).filter(UpdateLog.data_type == 'daily').first()
@@ -28,6 +30,7 @@ def update__daily_update_log(db: Session):
         db.commit()
         logger.info("Daily update log updated seccessfully")
     else:
+        db.rollback()
         logger.error("Daily update log entry is missing in the 'update_log' table.")
 
 
@@ -40,4 +43,5 @@ def update__hourly_update_log(db: Session):
         db.commit
         logger.info("Hourly update log updated seccessfully")
     else:
+        db.rollback()
         logger.error("Hourly update log entry is missing in the 'update_log' table.")
