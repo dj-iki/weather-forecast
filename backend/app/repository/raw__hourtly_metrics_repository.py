@@ -1,7 +1,9 @@
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy import func
 from ..utils.logger import logger
 from ..models.raw__hourly_metrics import RawHourlyMetrics
+from ..models.update_log import UpdateLog
 from datetime import datetime
 
 # INSERT INTO raw__hourly_metrics(nazivi kolona) VALUES(ovde idu sve vrednosti)
@@ -18,8 +20,8 @@ def add_raw__hourly_metrics(db: Session, data: dict, i: int):
         raw__hourly_metrics.temperature_120m_in_C = hourly_data["temperature_120m"][i]
         raw__hourly_metrics.temperature_180m_in_C = hourly_data["temperature_180m"][i]
         raw__hourly_metrics.relative_humidity_2m_in_percentage = hourly_data["relative_humidity_2m"][i]
-        raw__hourly_metrics.percipitation_in_mm = hourly_data["precipitation"][i]
-        raw__hourly_metrics.percipitation_probability_in_percentage = hourly_data["precipitation_probability"][i]
+        raw__hourly_metrics.precipitation_in_mm = hourly_data["precipitation"][i]
+        raw__hourly_metrics.precipitation_probability_in_percentage = hourly_data["precipitation_probability"][i]
         raw__hourly_metrics.cloud_cover_low_in_percentage = hourly_data["cloud_cover_low"][i]
         raw__hourly_metrics.cloud_cover_in_percentage = hourly_data["cloud_cover"][i]
         raw__hourly_metrics.cloud_cover_mid_in_percentage = hourly_data["cloud_cover_mid"][i]
@@ -79,8 +81,8 @@ def update_raw__hourly_metrics(db: Session, raw__hourly_metrics: RawHourlyMetric
         raw__hourly_metrics.temperature_120m_in_C = hourly_data["temperature_120m"][i]
         raw__hourly_metrics.temperature_180m_in_C = hourly_data["temperature_180m"][i]
         raw__hourly_metrics.relative_humidity_2m_in_percentage = hourly_data["relative_humidity_2m"][i]
-        raw__hourly_metrics.percipitation_in_mm = hourly_data["precipitation"][i]
-        raw__hourly_metrics.percipitation_probability_in_percentage = hourly_data["precipitation_probability"][i]
+        raw__hourly_metrics.precipitation_in_mm = hourly_data["precipitation"][i]
+        raw__hourly_metrics.precipitation_probability_in_percentage = hourly_data["precipitation_probability"][i]
         raw__hourly_metrics.cloud_cover_low_in_percentage = hourly_data["cloud_cover_low"][i]
         raw__hourly_metrics.cloud_cover_in_percentage = hourly_data["cloud_cover"][i]
         raw__hourly_metrics.cloud_cover_mid_in_percentage = hourly_data["cloud_cover_mid"][i]
@@ -103,6 +105,7 @@ def update_raw__hourly_metrics(db: Session, raw__hourly_metrics: RawHourlyMetric
         raw__hourly_metrics.soil_moisture_3cm_to_9cm_in_percentage = hourly_data["soil_moisture_3_to_9cm"][i]
         raw__hourly_metrics.soil_moisture_9cm_to_27cm_in_percentage = hourly_data["soil_moisture_9_to_27cm"][i]
         raw__hourly_metrics.soil_moisture_27cm_to_81cm_in_percentage = hourly_data["soil_moisture_27_to_81cm"][i]
+        raw__hourly_metrics.inserted_at = func.now()
         db.commit()
         db.refresh(raw__hourly_metrics)
         logger.info(f" - {raw__hourly_metrics.latitude}, {raw__hourly_metrics.longitude}, {raw__hourly_metrics.measurements_date_and_time} - updated successfully")
@@ -110,3 +113,14 @@ def update_raw__hourly_metrics(db: Session, raw__hourly_metrics: RawHourlyMetric
     except SQLAlchemyError as e:
         db.rollback()
         logger.warning(f"Database error occurred: {e}")
+
+
+
+def get_raw__hourly_metrics_after(db: Session, update_log: UpdateLog):
+    raw__hourly_metrics = db.query(RawHourlyMetrics).filter(RawHourlyMetrics.inserted_at > update_log.last_updated).all()
+    
+    if raw__hourly_metrics:
+        return raw__hourly_metrics
+    else:
+        logger.warning(f"There is no hourly data after {update_log.last_updated}")
+        return None

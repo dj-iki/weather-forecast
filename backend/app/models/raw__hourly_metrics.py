@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, TIMESTAMP
+from sqlalchemy import Column, Integer, Float, TIMESTAMP, func
 from .base import RawSchema
 
 class RawHourlyMetrics(RawSchema):
@@ -12,8 +12,8 @@ class RawHourlyMetrics(RawSchema):
     temperature_120m_in_C = Column("temperature_120m_in_C", Float, nullable=False)
     temperature_180m_in_C = Column("temperature_180m_in_C", Float, nullable=False)
     relative_humidity_2m_in_percentage = Column("relative_humidity_2m_in_percentage", Integer, nullable=False)
-    percipitation_in_mm = Column("percipitation_in_mm", Float, nullable=False)
-    percipitation_probability_in_percentage = Column("percipitation_probability_in_percentage", Integer, nullable=False)
+    precipitation_in_mm = Column("precipitation_in_mm", Float, nullable=False)
+    precipitation_probability_in_percentage = Column("precipitation_probability_in_percentage", Integer, nullable=False)
     cloud_cover_low_in_percentage = Column("cloud_cover_low_in_percentage", Integer, nullable=False)
     cloud_cover_in_percentage = Column("cloud_cover_in_percentage", Integer, nullable=False)
     cloud_cover_mid_in_percentage = Column("cloud_cover_mid_in_percentage", Integer, nullable=False)
@@ -36,3 +36,4 @@ class RawHourlyMetrics(RawSchema):
     soil_moisture_3cm_to_9cm_in_percentage = Column("soil_moisture_3cm_to_9cm_in_percentage", Float, nullable=False)
     soil_moisture_9cm_to_27cm_in_percentage = Column("soil_moisture_9cm_to_27cm_in_percentage", Float, nullable=False)
     soil_moisture_27cm_to_81cm_in_percentage = Column("soil_moisture_27cm_to_81cm_in_percentage", Float, nullable=False)
+    inserted_at = Column("inserted_at", TIMESTAMP, nullable=False, server_default=func.now())

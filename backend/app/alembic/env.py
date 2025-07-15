@@ -5,7 +5,7 @@ from sqlalchemy import engine_from_config, pool
 
 from app.database.config import DATABASE_URL
 
-from app.main import DailySchema, RawSchema, HourlySchema
+from app.main import DailySchema, RawSchema, HourlySchema, UtilSchema
 from app.models.daily__measurement_context import DailyMeasurementContext
 from app.models.raw__daily_metrics import RawDailyMetrics
 from app.models.raw__hourly_metrics import RawHourlyMetrics
@@ -14,11 +14,12 @@ from app.models.daily__precipitation_measurements import DailyPrecipitationMeasu
 from app.models.daily__temperature_measurements import DailyTemperatureMeasurements
 from app.models.daily__uv_lights_measurements import DailyUVLightsMeasurements
 from app.models.hourly__measurement_context import HourlyMesurementContext
-from app.models.hourly__percipitation_measurements import HourlyPercipitationMeasurements
+from app.models.hourly__precipitation_measurements import HourlyPrecipitationMeasurements
 from app.models.hourly__soil_measurements import HourlySoilMeasurements
 from app.models.hourly__temperature_measurements import HourlyTemperatureMeasurements
 from app.models.hourly__visibility_measurements import HourlyVisibilityMeasurements
 from app.models.hourly__wind_measurements import HourlyWindMeasurements
+from app.models.update_log import UpdateLog
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
