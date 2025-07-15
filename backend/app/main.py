@@ -65,8 +65,7 @@ scheduler = BackgroundScheduler()
 def start_scheduler():
     scheduler.add_job(
         scheduled_daily,
-        # CronTrigger(minute="0",hour="21",day_of_week="sun"),
-        CronTrigger(minute="49"),
+        CronTrigger(minute="0",hour="21",day_of_week="sun"),
         id="get_raw_daily_data",
         replace_existing=True
     )
