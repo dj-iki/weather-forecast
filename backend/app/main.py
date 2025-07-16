@@ -11,7 +11,7 @@ from datetime import datetime
 # TODO - Add schemas import here for Alembic
 # TODO - Import routers
 
-from .routers import dummy
+from .routers import dummy, send_mail
 from .models.base import RawSchema, DailySchema, HourlySchema, UtilSchema
 
 
@@ -53,6 +53,7 @@ app.add_middleware(
 # TODO - Add routers with app.include_router(name.router)
 
 app.include_router(dummy.router)
+app.include_router(send_mail.router)
 
 
 

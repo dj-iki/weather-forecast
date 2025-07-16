@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Report</title>
+    <style>
+        body { font-family: 'Times New Roman', Times, serif;}
+        h1 {color: blue;}
+        table {border-collapse: collapse; width: 100%;}
+        th, td {border: 1px solid black; padding: 8px;}
+    </style>
+</head>
+<body>
+    <h1>Report</h1>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Min</th>
+            <th>Max</th>
+            <th>Average</th>
+        </tr>
+        {% for row in data %}
+        <tr>
+            <td>{{row.name}}</td>
+            <td>{{row.min}}</td>
+            <td>{{row.max}}</td>
+            <td>{{row.average}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
