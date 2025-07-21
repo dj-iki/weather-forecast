@@ -33,33 +33,27 @@ config = ConnectionConfig(
 )
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
-REPORT_PATH = os.path.join(BASE_DIR, "reports", "generated.pdf")
-
 
 env = Environment(loader=FileSystemLoader("/backend/app/templates"))
 
 
 @router.get("/", status_code=status.HTTP_200_OK)
-async def send_mail(num_days: int = 1, place_name: str = "Београд"):
-    data = [{"name": "nesto", "min": "min", "max": "max", "average": "avg"}]
+async def send_mail(num_days: int = 1, place_name: str = "Београд", data = Depends(get_data_for_report_dependencie)):
+    if data != "NESTO NE VALJA":
+        template = env.get_template("testreport.html")
+        html_content = template.render(data=data)
 
-    print("Loading templates from:", TEMPLATE_DIR)
-    print("Files in template dir:", os.listdir(TEMPLATE_DIR))
+        HTML(string=html_content).write_pdf("/backend/app/reports/generated.pdf")
 
-    template = env.get_template("testreport.html")
-    html_content = template.render(data=data)
-
-    HTML(string=html_content).write_pdf(REPORT_PATH)
-
-    message = MessageSchema(
-        subject="Report",
-        recipients=["milutindjikandic@gmail.com"],
-        body="SMRDIM",
-        subtype="plain",
-        attachments=["/backend/app/reports/generated.pdf"],
-    )
-    fm = FastMail(config)
-    await fm.send_message(message)
-    return {"message": "Report sent!"}
+        message = MessageSchema(
+            subject="Report",
+            recipients=["sakal.teodor@gmail.com", "milutindjikandic@gmail.com"],
+            body="Ipak sam uspeo da napravim dependecy, malko sam glup jbg. Nadam se da ovo valja, ovo je za hourly weather-forecast.",
+            subtype="plain",
+            attachments=["/backend/app/reports/generated.pdf"],
+        )
+        fm = FastMail(config)
+        await fm.send_message(message)
+        return {"message": "Report sent!"}
+    else:
+        return {"message": "DOSLO JE DO GRESKE"}
