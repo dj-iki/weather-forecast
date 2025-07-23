@@ -47,7 +47,7 @@ async def send_mail(num_days: int = 1, place_name: str = "Београд", data 
 
         message = MessageSchema(
             subject="Report",
-            recipients=["sakal.teodor@gmail.com", "milutindjikandic@gmail.com"],
+            recipients=["example@email.com"],
             body="Ipak sam uspeo da napravim dependecy, malko sam glup jbg. Nadam se da ovo valja, ovo je za hourly weather-forecast.",
             subtype="plain",
             attachments=["/backend/app/reports/generated.pdf"],
