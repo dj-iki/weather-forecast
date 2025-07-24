@@ -95,14 +95,14 @@ def fill_hourly_zone():
                     add_hourly__soil_measurements(db, hourly__soil_measurements)
 
                     # ADD - HOURLY__PERCIPITATION_MEASUREMENTS
-                    hourly__percipitation_measurements = HourlyPrecipitationMeasurements(
-                        percipitation = data.precipitation_in_mm,
-                        percipitation_probability = data.precipitation_probability_in_percentage,
+                    hourly__precipitation_measurements = HourlyPrecipitationMeasurements(
+                        precipitation = data.precipitation_in_mm,
+                        precipitation_probability = data.precipitation_probability_in_percentage,
                         relative_humidity_2m = data.relative_humidity_2m_in_percentage,
                         hourly_measurement_context_id = hourly__measurement_context.id
                     )
                     
-                    add_hourly__precipitation_measurements(db, hourly__percipitation_measurements)
+                    add_hourly__precipitation_measurements(db, hourly__precipitation_measurements)
 
                     logger.info("Data added to hourly zone seccessfully")
 
